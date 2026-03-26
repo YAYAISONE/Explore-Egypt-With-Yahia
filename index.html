@@ -144,7 +144,7 @@ nav {
   border-top: 1px solid rgba(201,168,76,0.1);
   border-bottom: 1px solid rgba(201,168,76,0.1);
   padding: 48px 40px;
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
 }
 .stat {
   text-align: center; padding: 20px;
@@ -186,7 +186,7 @@ section { padding: 100px 40px; max-width: 1200px; margin: 0 auto; }
 }
 .tour-card {
   background: var(--dark2);
-  padding: 40px 36px;
+  padding: 40px 36px 70px;
   border: 1px solid rgba(201,168,76,0.08);
   position: relative; overflow: hidden;
   transition: all .4s; cursor: pointer;
@@ -209,8 +209,20 @@ section { padding: 100px 40px; max-width: 1200px; margin: 0 auto; }
   font-size: 14px; color: rgba(253,250,244,0.45);
   line-height: 1.7; font-weight: 300;
 }
+.tour-badge {
+  display: inline-block; margin-top: 16px;
+  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--gold); border: 1px solid rgba(201,168,76,0.3);
+  padding: 4px 10px; border-radius: 2px;
+}
+.tour-price-hint {
+  position: absolute; bottom: 32px; left: 36px;
+  font-family: 'Playfair Display', serif;
+  font-size: 18px; color: var(--gold);
+}
+.tour-price-hint span { font-size: 12px; color: rgba(253,250,244,0.35); font-family: 'DM Sans',sans-serif; }
 .tour-arrow {
-  position: absolute; bottom: 32px; right: 32px;
+  position: absolute; bottom: 36px; right: 32px;
   color: var(--gold); font-size: 20px; opacity: 0;
   transition: all .3s; transform: translateX(-8px);
 }
@@ -219,6 +231,124 @@ section { padding: 100px 40px; max-width: 1200px; margin: 0 auto; }
   border-color: rgba(201,168,76,0.25);
   background: linear-gradient(135deg, rgba(201,168,76,0.06), var(--dark2));
 }
+
+/* TOUR MODAL */
+.tour-modal-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(10,7,2,0.88); z-index: 500;
+  align-items: center; justify-content: center;
+  padding: 20px;
+  backdrop-filter: blur(4px);
+}
+.tour-modal-overlay.open { display: flex; }
+.tour-modal {
+  background: var(--dark2);
+  border: 1px solid rgba(201,168,76,0.2);
+  max-width: 640px; width: 100%;
+  max-height: 90vh; overflow-y: auto;
+  position: relative;
+  animation: fadeUp .35s ease both;
+}
+.tour-modal-header {
+  padding: 36px 40px 24px;
+  border-bottom: 1px solid rgba(201,168,76,0.1);
+}
+.tour-modal-icon { font-size: 36px; margin-bottom: 12px; display: block; }
+.tour-modal-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px; color: var(--white); margin-bottom: 6px;
+}
+.tour-modal-days {
+  font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--gold);
+}
+.tour-modal-body { padding: 28px 40px 36px; }
+.tour-modal-desc {
+  font-size: 15px; color: rgba(253,250,244,0.6);
+  line-height: 1.8; font-weight: 300; margin-bottom: 28px;
+}
+.tour-stops-label {
+  font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+  color: rgba(253,250,244,0.35); margin-bottom: 14px; display: block;
+}
+.tour-stops {
+  display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px;
+}
+.tour-stop {
+  display: flex; align-items: flex-start; gap: 12px;
+  font-size: 14px; color: rgba(253,250,244,0.7);
+}
+.tour-stop-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--gold); flex-shrink: 0; margin-top: 6px;
+}
+.tour-includes {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px;
+}
+.tour-include-pill {
+  font-size: 11px; padding: 5px 12px;
+  border: 1px solid rgba(201,168,76,0.2);
+  color: rgba(253,250,244,0.5); border-radius: 2px;
+}
+.tour-pricing {
+  background: rgba(201,168,76,0.04);
+  border: 1px solid rgba(201,168,76,0.12);
+  padding: 24px; margin-bottom: 28px;
+}
+.tour-pricing-title {
+  font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+  color: rgba(253,250,244,0.35); margin-bottom: 6px; display: block;
+}
+.tour-pricing-note {
+  font-size: 12px; color: var(--gold); margin-bottom: 20px;
+  opacity: 0.75;
+}
+.tour-pricing-grid {
+  display: flex; flex-direction: column; gap: 10px;
+}
+.tour-price-item {
+  display: flex; align-items: center; gap: 14px;
+}
+.tour-price-group {
+  font-size: 12px; color: rgba(253,250,244,0.45);
+  width: 72px; flex-shrink: 0; letter-spacing: 0.5px;
+}
+.tour-price-bar-wrap {
+  flex: 1; height: 4px; background: rgba(201,168,76,0.1); border-radius: 2px; overflow: hidden;
+}
+.tour-price-bar {
+  height: 100%; background: var(--gold); border-radius: 2px;
+  transition: width .4s ease;
+}
+.tour-price-val {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px; color: var(--gold);
+  width: 60px; text-align: right; flex-shrink: 0;
+}
+.tour-price-per { font-size: 10px; color: rgba(253,250,244,0.3); width: 58px; flex-shrink:0; }
+.tour-modal-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+.tour-modal-book {
+  flex: 1; background: var(--gold); color: var(--dark);
+  padding: 14px 24px; border: none; cursor: pointer;
+  font-family: 'DM Sans',sans-serif; font-size: 12px;
+  font-weight: 500; letter-spacing: 2px; text-transform: uppercase;
+  transition: all .3s; border-radius: 2px; text-align: center;
+  text-decoration: none; display: inline-block;
+}
+.tour-modal-book:hover { background: var(--gold-light); }
+.tour-modal-close-btn {
+  padding: 14px 20px; border: 1px solid rgba(201,168,76,0.2);
+  background: none; color: rgba(253,250,244,0.4); cursor: pointer;
+  font-size: 13px; letter-spacing: 1px; transition: all .3s;
+  border-radius: 2px; font-family: 'DM Sans',sans-serif;
+}
+.tour-modal-close-btn:hover { border-color: var(--gold); color: var(--white); }
+.modal-x {
+  position: absolute; top: 16px; right: 20px;
+  background: none; border: none; color: rgba(253,250,244,0.3);
+  font-size: 24px; cursor: pointer; transition: color .2s; line-height: 1;
+}
+.modal-x:hover { color: var(--gold); }
 
 /* ABOUT */
 .about-wrap {
@@ -382,6 +512,17 @@ section { padding: 100px 40px; max-width: 1200px; margin: 0 auto; }
 .channel-arrow { color: var(--gold); font-size: 16px; opacity: 0; transition: opacity .3s; }
 .channel:hover .channel-arrow { opacity: 1; }
 
+.star-picker {
+  display: flex; gap: 8px; margin-top: 4px;
+}
+.star-opt {
+  font-size: 28px; color: rgba(201,168,76,0.25);
+  cursor: pointer; transition: color .15s, transform .15s;
+  user-select: none;
+}
+.star-opt.active { color: var(--gold); }
+.star-opt:hover { transform: scale(1.15); }
+
 /* BOOKING FORM */
 .booking-form { display: flex; flex-direction: column; gap: 16px; }
 .form-group { display: flex; flex-direction: column; gap: 8px; }
@@ -516,66 +657,85 @@ footer {
     <div class="stat-num">5★</div>
     <div class="stat-label">Average Rating</div>
   </div>
-  <div class="stat">
-    <div class="stat-num">10+</div>
-    <div class="stat-label">Years Experience</div>
-  </div>
 </div>
 
 <!-- TOURS -->
 <section id="tours">
   <span class="section-tag">What We Offer</span>
   <h2 class="section-title">Our <em>Signature</em> Tours</h2>
-  <p class="section-desc">From the iconic Pyramids of Giza to the hidden gems of Islamic Cairo — every tour is crafted for an unforgettable experience.</p>
+  <p class="section-desc">From the iconic Pyramids of Giza to the shores of Alexandria — every package is crafted for an unforgettable journey through Egypt's greatest wonders.</p>
   <div class="tours-grid">
-    <div class="tour-card tour-featured">
+
+    <div class="tour-card tour-featured" onclick="openTour('day1')">
       <span class="tour-icon">🏛️</span>
-      <div class="tour-name">The Pyramids of Giza</div>
-      <div class="tour-desc">Stand before the last Wonder of the Ancient World. Explore the Great Pyramid, Sphinx, and the Valley Temple with an expert guide who brings history to life.</div>
+      <div class="tour-badge">1 Day</div>
+      <div class="tour-name">Cairo Classics</div>
+      <div class="tour-desc">The ultimate Cairo day — stand before the last Wonder of the Ancient World, then step inside one of history's greatest treasure houses. Two icons, one unforgettable day.</div>
+      <div class="tour-price-hint">From $90 <span>/ person</span></div>
       <div class="tour-arrow">→</div>
     </div>
-    <div class="tour-card">
-      <span class="tour-icon">🏺</span>
-      <div class="tour-name">Egyptian Museum</div>
-      <div class="tour-desc">Journey through 5,000 years of history. Discover Tutankhamun's treasures and ancient mummies with a guided expert tour inside Cairo's famous museum.</div>
-      <div class="tour-arrow">→</div>
-    </div>
-    <div class="tour-card">
+
+    <div class="tour-card" onclick="openTour('day2')">
       <span class="tour-icon">🕌</span>
-      <div class="tour-name">Islamic Cairo</div>
-      <div class="tour-desc">Walk through medieval alleyways, stunning mosques, and the legendary Khan el-Khalili bazaar in one of the world's most atmospheric cities.</div>
+      <div class="tour-badge">2 Days</div>
+      <div class="tour-name">Cairo in Depth</div>
+      <div class="tour-desc">Go beyond the Pyramids. On day two, lose yourself in Islamic Cairo — medieval citadels, stunning mosques, and the legendary Khan el-Khalili bazaar.</div>
+      <div class="tour-price-hint">From $140 <span>/ person</span></div>
       <div class="tour-arrow">→</div>
     </div>
-    <div class="tour-card">
-      <span class="tour-icon">🌅</span>
-      <div class="tour-name">Luxor & Hurghada</div>
-      <div class="tour-desc">Venture beyond Cairo to the Valley of the Kings in Luxor or the crystal waters of the Red Sea in Hurghada. Day trips and multi-day packages available.</div>
+
+    <div class="tour-card" onclick="openTour('day3')">
+      <span class="tour-icon">🌊</span>
+      <div class="tour-badge">3 Days</div>
+      <div class="tour-name">Cairo & Alexandria</div>
+      <div class="tour-desc">Add a journey to Egypt's Mediterranean jewel. Ancient libraries, Roman tombs, and a legendary sea fortress — Alexandria is unlike anywhere else on earth.</div>
+      <div class="tour-price-hint">From $150 <span>/ person</span></div>
       <div class="tour-arrow">→</div>
     </div>
-    <div class="tour-card tour-featured">
-      <span class="tour-icon">👑</span>
-      <div class="tour-name">Private Tours</div>
-      <div class="tour-desc">Fully private, fully flexible. Your schedule, your pace, your interests. Perfect for couples, families, and those who want an exclusive experience.</div>
-      <div class="tour-arrow">→</div>
-    </div>
-    <div class="tour-card">
+
+    <div class="tour-card tour-featured" onclick="openTour('custom')">
       <span class="tour-icon">✨</span>
-      <div class="tour-name">Custom Experiences</div>
-      <div class="tour-desc">Tell us your dream Egypt experience — sunrise at the Pyramids, photography tours, foodie adventures — and we'll make it happen.</div>
+      <div class="tour-badge">Custom</div>
+      <div class="tour-name">Tailor-Made Experience</div>
+      <div class="tour-desc">4 days, a week, or something completely your own? Tell Yahia your dream and he'll build a custom itinerary and a personal quote just for you.</div>
+      <div class="tour-price-hint">Custom <span>quote</span></div>
       <div class="tour-arrow">→</div>
     </div>
+
   </div>
 </section>
+
+<!-- TOUR MODALS -->
+<div class="tour-modal-overlay" id="tourModal" onclick="closeTourIfBg(event)">
+  <div class="tour-modal" id="tourModalBox">
+    <button class="modal-x" onclick="closeTour()">×</button>
+    <div class="tour-modal-header">
+      <span class="tour-modal-icon" id="mIcon"></span>
+      <div class="tour-modal-title" id="mTitle"></div>
+      <div class="tour-modal-days" id="mDays"></div>
+    </div>
+    <div class="tour-modal-body">
+      <div class="tour-modal-desc" id="mDesc"></div>
+      <span class="tour-stops-label" id="mStopsLabel">What You'll Visit</span>
+      <div class="tour-stops" id="mStops"></div>
+      <div class="tour-includes" id="mIncludes"></div>
+      <div class="tour-pricing" id="mPricing">
+        <span class="tour-pricing-title">Pricing Per Person</span>
+        <div class="tour-pricing-grid" id="mPricingGrid"></div>
+      </div>
+      <div class="tour-modal-btns">
+        <a id="mBookBtn" href="#" class="tour-modal-book" target="_blank">Book on WhatsApp →</a>
+        <button class="tour-modal-close-btn" onclick="closeTour()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- ABOUT -->
 <div class="about-wrap" id="about">
   <div class="about-visual">
     <div class="about-frame">
       🧭
-      <div class="about-badge">
-        <div class="about-badge-num">10+</div>
-        <div class="about-badge-text">Years</div>
-      </div>
     </div>
   </div>
   <div class="about-text">
@@ -631,34 +791,40 @@ footer {
     <span class="section-tag">What Tourists Say</span>
     <h2 class="section-title">Real <em>Experiences</em></h2>
     <div class="testimonials-grid">
-      <div class="testimonial">
-        <div class="stars">★★★★★</div>
-        <div class="testimonial-text">Yahia made our visit to the Pyramids absolutely magical. His knowledge is incredible and he made us feel like VIPs the entire time. Best decision we made on our Egypt trip!</div>
-        <div class="testimonial-author">Sarah & James</div>
-        <div class="testimonial-from">🇺🇸 United States</div>
-      </div>
-      <div class="testimonial">
-        <div class="stars">★★★★★</div>
-        <div class="testimonial-text">We booked a private tour and it was worth every penny. Yahia knows every corner of Cairo — from the museum to the bazaar. He's funny, knowledgeable, and incredibly kind.</div>
-        <div class="testimonial-author">Marie & François</div>
-        <div class="testimonial-from">🇫🇷 France</div>
-      </div>
-      <div class="testimonial">
-        <div class="stars">★★★★★</div>
-        <div class="testimonial-text">I've been to Egypt three times but this was the first time I truly understood what I was seeing. Yahia's storytelling transforms ancient stones into living history.</div>
-        <div class="testimonial-author">Carlos M.</div>
-        <div class="testimonial-from">🇪🇸 Spain</div>
-      </div>
+  <div class="testimonial">
+    <div class="stars">★★★★★</div>
+    <div class="testimonial-text">
+      Yahia made our visit to the Pyramids absolutely magical. His knowledge is incredible and he made us feel like VIPs the entire time.
     </div>
+    <div class="testimonial-author">Γιώργος & Ντίνα</div>
+    <div class="testimonial-from">🇬🇷 Greece</div>
+  </div>
+  <div class="testimonial">
+    <div class="stars">★★★★★</div>
+    <div class="testimonial-text">
+      We booked a private tour and it was worth every penny. Yahia knows every corner of Cairo — funny, knowledgeable, and kind.
+    </div>
+    <div class="testimonial-author">Hakan & Yaşar</div>
+    <div class="testimonial-from">🇹🇷 Turkey</div>
+  </div>
+  <div class="testimonial">
+    <div class="stars">★★★★★</div>
+    <div class="testimonial-text">
+      I've been to Egypt three times but this was the first time I truly understood what I was seeing. An unforgettable experience.
+    </div>
+    <div class="testimonial-author">Joseph & Ilia</div>
+    <div class="testimonial-from">🇮🇪 Ireland</div>
+  </div>
+</div>
   </div>
 </div>
 
 <!-- CONTACT -->
 <div class="contact-wrap" id="contact">
   <div>
-    <span class="section-tag">Get In Touch</span>
-    <h2 class="section-title">Book Your <em>Adventure</em></h2>
-    <p class="section-desc">Ready to explore? Send a message and Yahia will get back to you within a few hours to plan your perfect Egypt experience.</p>
+    <span class="section-tag">Share Your Experience</span>
+    <h2 class="section-title">Leave a <em>Review</em></h2>
+    <p class="section-desc">Did you tour with Yahia? We'd love to hear about your experience. Your review will appear on this page instantly.</p>
     <div class="contact-channels">
       <a href="https://wa.me/201148360909" class="channel" target="_blank">
         <div class="channel-icon">💬</div>
@@ -698,33 +864,28 @@ footer {
     <div class="booking-form">
       <div class="form-group">
         <label class="form-label">Your Name</label>
-        <input type="text" class="form-input" placeholder="e.g. John Smith">
+        <input type="text" class="form-input" id="reviewName" placeholder="e.g. Sarah & James">
       </div>
       <div class="form-group">
-        <label class="form-label">Email or WhatsApp</label>
-        <input type="text" class="form-input" placeholder="How should Yahia reach you?">
+        <label class="form-label">Country</label>
+        <input type="text" class="form-input" id="reviewCountry" placeholder="e.g. 🇺🇸 United States">
       </div>
       <div class="form-group">
-        <label class="form-label">Tour Type</label>
-        <select class="form-select">
-          <option value="">Select a tour...</option>
-          <option>Pyramids of Giza</option>
-          <option>Egyptian Museum</option>
-          <option>Islamic Cairo</option>
-          <option>Luxor / Hurghada</option>
-          <option>Private Tour</option>
-          <option>Custom Experience</option>
-        </select>
+        <label class="form-label">Rating</label>
+        <div class="star-picker" id="starPicker">
+          <span class="star-opt" data-val="1">★</span>
+          <span class="star-opt" data-val="2">★</span>
+          <span class="star-opt" data-val="3">★</span>
+          <span class="star-opt" data-val="4">★</span>
+          <span class="star-opt" data-val="5">★</span>
+        </div>
+        <input type="hidden" id="reviewStars" value="5">
       </div>
       <div class="form-group">
-        <label class="form-label">Number of People</label>
-        <input type="number" class="form-input" placeholder="e.g. 2" min="1">
+        <label class="form-label">Your Review</label>
+        <textarea class="form-textarea" id="reviewText" placeholder="Share your experience with Yahia..." style="min-height:130px;"></textarea>
       </div>
-      <div class="form-group">
-        <label class="form-label">Message</label>
-        <textarea class="form-textarea" placeholder="Tell Yahia about your ideal tour, preferred dates, or any special requests..."></textarea>
-      </div>
-      <button class="form-submit" onclick="sendWhatsApp()">Send via WhatsApp →</button>
+      <button class="form-submit" onclick="submitReview()">Post Review →</button>
     </div>
   </div>
 </div>
@@ -742,15 +903,226 @@ footer {
 </footer>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-function sendWhatsApp() {
-  var name = document.querySelector('input[placeholder*="John"]').value;
-  var contact = document.querySelector('input[placeholder*="WhatsApp"]').value;
-  var tour = document.querySelector('select').value;
-  var people = document.querySelector('input[type="number"]').value;
-  var msg = document.querySelector('textarea').value;
-  var text = "Hello Yahia! I'd like to book a tour.\n\nName: " + (name||'N/A') + "\nContact: " + (contact||'N/A') + "\nTour: " + (tour||'N/A') + "\nPeople: " + (people||'N/A') + "\n\nMessage: " + (msg||'N/A');
-  window.open('https://wa.me/201148360909?text=' + encodeURIComponent(text), '_blank');
+
+// ── TOUR DATA ─────────────────────────────────────────────
+var TOURS = {
+  day1: {
+    icon: '🏛️', days: '1-Day Package',
+    title: 'Cairo Classics',
+    desc: 'The perfect introduction to ancient Egypt. You\'ll stand before the Great Pyramid — the last surviving Wonder of the Ancient World — and walk in the shadow of the legendary Sphinx. Then dive into the world\'s greatest collection of pharaonic treasures at the Grand Egyptian Museum. Two icons, one extraordinary day.',
+    stops: [
+      'The Great Pyramid of Giza & the Sphinx',
+      'The Valley Temple of Khafre',
+      'The Grand Egyptian Museum (GEM) — including Tutankhamun\'s treasures'
+    ],
+    includes: ['Expert licensed guide (Yahia)', 'Private air-conditioned vehicle', 'Entrance tickets included', 'Bottled water per person'],
+    pricing: [
+      { group: '1 Person', price: '$149', per: 'per person' },
+      { group: '2 People', price: '$125', per: 'per person' },
+      { group: '3 People', price: '$100', per: 'per person' },
+      { group: '4 People', price: '$90',  per: 'per person' },
+    ]
+  },
+  day2: {
+    icon: '🕌', days: '2-Day Package',
+    title: 'Cairo in Depth',
+    desc: 'Day one takes you to the Pyramids and the Grand Egyptian Museum. On day two, you\'ll venture into the heart of Islamic Cairo — one of the world\'s most atmospheric medieval cities. Wander through centuries-old alleyways, gaze up at breathtaking mosques, and lose yourself in the legendary Khan el-Khalili bazaar.',
+    stops: [
+      'Day 1 — The Great Pyramid, Sphinx & Grand Egyptian Museum',
+      'Day 2 — Salah El-Din (Saladin) Citadel',
+      'Day 2 — Al-Rifa\'i Mosque & Sultan Hassan Mosque & Madrasa',
+      'Day 2 — Al-Azhar Mosque (one of the world\'s oldest universities)',
+      'Day 2 — Khan el-Khalili Bazaar'
+    ],
+    includes: ['Expert licensed guide (Yahia)', 'Private air-conditioned vehicle', 'Entrance tickets included', 'Bottled water per person'],
+    pricing: [
+      { group: '1 Person', price: '$249', per: 'per person' },
+      { group: '2 People', price: '$220', per: 'per person' },
+      { group: '3 People', price: '$190', per: 'per person' },
+      { group: '4 People', price: '$140', per: 'per person' },
+    ]
+  },
+  day3: {
+    icon: '🌊', days: '3-Day Package',
+    title: 'Cairo & Alexandria',
+    desc: 'The complete Egyptian experience. Two full days in Cairo — the Pyramids, the Grand Egyptian Museum, and Islamic Cairo. Then on day three, journey north to Alexandria, Egypt\'s legendary Mediterranean city. Ancient libraries, Roman catacombs, a Mamluk sea fortress, and a Roman column that has stood for 1,700 years.',
+    stops: [
+      'Days 1 & 2 — Full Cairo itinerary (Pyramids, GEM & Islamic Cairo)',
+      'Day 3 — Bibliotheca Alexandrina (the great Library of Alexandria)',
+      'Day 3 — Catacombs of Kom el-Shoqafa (one of the Seven Wonders of the Middle Ages)',
+      'Day 3 — Pompey\'s Pillar & the Roman Amphitheatre',
+      'Day 3 — Qaitbay Citadel on the Mediterranean Sea'
+    ],
+    includes: ['Expert licensed guide (Yahia)', 'Private air-conditioned vehicle', 'Entrance tickets included', 'Bottled water per person'],
+    pricing: [
+      { group: '1 Person', price: '$399', per: 'per person' },
+      { group: '2 People', price: '$250', per: 'per person' },
+      { group: '3 People', price: '$200', per: 'per person' },
+      { group: '4 People', price: '$150', per: 'per person' },
+    ]
+  },
+  custom: {
+    icon: '✨', days: 'Custom Package',
+    title: 'Tailor-Made Experience',
+    desc: 'Want 4 days? A full week? A sunrise visit to the Pyramids? A photography tour? A foodie adventure through Cairo\'s hidden kitchens? Whatever your dream Egypt experience looks like, Yahia will build a custom itinerary and send you a personal quote — just tell him what you have in mind.',
+    stops: [
+      'Any combination of Cairo, Alexandria, Luxor, Hurghada & beyond',
+      'Sunrise or sunset sessions at iconic landmarks',
+      'Photography tours, culinary tours, family-friendly packages',
+      'Multi-city routes with flexible pacing'
+    ],
+    includes: ['Fully personalized itinerary', 'Expert licensed guide (Yahia)', 'Private air-conditioned vehicle', 'Custom quote — no obligation'],
+    pricing: null
+  }
+};
+
+function openTour(id) {
+  var t = TOURS[id];
+  document.getElementById('mIcon').textContent  = t.icon;
+  document.getElementById('mTitle').textContent = t.title;
+  document.getElementById('mDays').textContent  = t.days;
+  document.getElementById('mDesc').textContent  = t.desc;
+
+  var stopsEl = document.getElementById('mStops');
+  stopsEl.innerHTML = '';
+  t.stops.forEach(function(s) {
+    stopsEl.innerHTML += '<div class="tour-stop"><div class="tour-stop-dot"></div><div>' + s + '</div></div>';
+  });
+
+  var incEl = document.getElementById('mIncludes');
+  incEl.innerHTML = '';
+  t.includes.forEach(function(i) {
+    incEl.innerHTML += '<div class="tour-include-pill">✓ ' + i + '</div>';
+  });
+
+  var pricingEl = document.getElementById('mPricing');
+  var gridEl    = document.getElementById('mPricingGrid');
+  if (t.pricing) {
+    pricingEl.style.display = 'block';
+    pricingEl.innerHTML =
+      '<span class="tour-pricing-title">Pricing Per Person</span>' +
+      '<div class="tour-pricing-note">↓ The more people, the less you pay per person</div>' +
+      '<div class="tour-pricing-grid" id="mPricingGrid"></div>';
+    var gridEl2 = document.getElementById('mPricingGrid');
+    var maxPrice = parseInt(t.pricing[0].price.replace('$',''));
+    t.pricing.forEach(function(p) {
+      var val = parseInt(p.price.replace('$',''));
+      var pct = Math.round((val / maxPrice) * 100);
+      gridEl2.innerHTML +=
+        '<div class="tour-price-item">' +
+          '<span class="tour-price-group">' + p.group + '</span>' +
+          '<div class="tour-price-bar-wrap"><div class="tour-price-bar" style="width:' + pct + '%"></div></div>' +
+          '<span class="tour-price-val">' + p.price + '</span>' +
+          '<span class="tour-price-per">/ person</span>' +
+        '</div>';
+    });
+  } else {
+    pricingEl.style.display = 'none';
+  }
+
+  var msg = id === 'custom'
+    ? 'Hello Yahia! I\'d like to discuss a custom tour package.'
+    : 'Hello Yahia! I\'d like to book the ' + t.title + ' (' + t.days + ').';
+  document.getElementById('mBookBtn').href = 'https://wa.me/201148360909?text=' + encodeURIComponent(msg);
+
+  document.getElementById('tourModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
 }
+function closeTour() {
+  document.getElementById('tourModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeTourIfBg(e) {
+  if (e.target === document.getElementById('tourModal')) closeTour();
+}
+document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeTour(); });
+
+// ── STAR PICKER ───────────────────────────────────────────
+var selectedStars = 5;
+document.addEventListener('DOMContentLoaded', function() {
+  setStars(5);
+  document.querySelectorAll('.star-opt').forEach(function(s) {
+    s.addEventListener('click', function() { setStars(+this.dataset.val); });
+    s.addEventListener('mouseenter', function() { highlightStars(+this.dataset.val); });
+    s.addEventListener('mouseleave', function() { highlightStars(selectedStars); });
+  });
+});
+function setStars(n) {
+  selectedStars = n;
+  document.getElementById('reviewStars').value = n;
+  highlightStars(n);
+}
+function highlightStars(n) {
+  document.querySelectorAll('.star-opt').forEach(function(s) {
+    s.classList.toggle('active', +s.dataset.val <= n);
+  });
+}
+
+// ── REVIEWS ──────────────────────────────────────────────
+function getReviews() {
+  try { return JSON.parse(localStorage.getItem('yahia_reviews') || '[]'); } catch(e) { return []; }
+}
+function saveReviews(arr) {
+  localStorage.setItem('yahia_reviews', JSON.stringify(arr));
+}
+function starsStr(n) {
+  return '★'.repeat(n) + '☆'.repeat(5 - n);
+}
+function buildReviewCard(r) {
+  var card = document.createElement('div');
+  card.className = 'testimonial user-review';
+  card.style.cssText = 'opacity:0;transform:translateY(20px);transition:opacity .5s,transform .5s;';
+  card.innerHTML =
+    '<div class="stars">' + starsStr(r.stars || 5) + '</div>' +
+    '<div class="testimonial-text">' + escapeHtml(r.text) + '</div>' +
+    '<div class="testimonial-author">' + escapeHtml(r.name) + '</div>' +
+    (r.country ? '<div class="testimonial-from">' + escapeHtml(r.country) + '</div>' : '');
+  return card;
+}
+function escapeHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function renderReviews() {
+  var grid = document.querySelector('.testimonials-grid');
+  if (!grid) return;
+  grid.querySelectorAll('.user-review').forEach(function(el){ el.remove(); });
+  getReviews().forEach(function(r) {
+    var card = buildReviewCard(r);
+    grid.appendChild(card);
+    setTimeout(function(){ card.style.opacity='1'; card.style.transform='translateY(0)'; }, 80);
+  });
+}
+function submitReview() {
+  var name    = document.getElementById('reviewName').value.trim();
+  var country = document.getElementById('reviewCountry').value.trim();
+  var stars   = +document.getElementById('reviewStars').value || 5;
+  var text    = document.getElementById('reviewText').value.trim();
+
+  if (!name || !text) { showToast('من فضلك اكتب اسمك والريفيو ✍️'); return; }
+
+  var reviews = getReviews();
+  reviews.push({ name: name, country: country, stars: stars, text: text, ts: Date.now() });
+  saveReviews(reviews);
+  renderReviews();
+
+  document.getElementById('reviewName').value = '';
+  document.getElementById('reviewCountry').value = '';
+  document.getElementById('reviewText').value = '';
+  setStars(5);
+  showToast('شكراً! ظهر الريفيو على الصفحة ✨');
+  document.querySelector('#reviews').scrollIntoView({ behavior: 'smooth' });
+}
+
+function showToast(msg) {
+  var t = document.createElement('div');
+  t.textContent = msg;
+  t.style.cssText = 'position:fixed;bottom:32px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--dark);padding:14px 28px;font-size:13px;font-weight:500;letter-spacing:1px;border-radius:2px;z-index:9999;opacity:0;transition:opacity .3s;white-space:nowrap;';
+  document.body.appendChild(t);
+  setTimeout(function(){ t.style.opacity='1'; },50);
+  setTimeout(function(){ t.style.opacity='0'; setTimeout(function(){ t.remove(); },400); }, 3000);
+}
+
+renderReviews();
 
 // Fade in on scroll
 var observer = new IntersectionObserver(function(entries) {
